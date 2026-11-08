@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理中心 · 硬核比价</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="css/guanli.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../首页/shouye.html">
+      <img src="../assets/img/logo.svg" alt="logo">
+      <span class="brand-name">硬核比价</span><span class="brand-sub">HWPRICE</span>
+    </a>
+    <nav class="nav">
+      <a class="nav-link" href="../首页/shouye.html">首页</a>
+      <a class="nav-link" href="../首页/shouye.html#categories">硬件价格</a>
+      <a class="nav-link" href="#" id="navAi">AI 助手</a>
+      <a class="nav-link active" href="guanli.html">管理中心</a>
+    </nav>
+    <div class="header-right" id="headerRight"></div>
+  </div>
+</header>
+
+<main class="container" style="padding-top:34px">
+  <!-- 未登录 -->
+  <div class="card" id="loginGuard" style="display:none;text-align:center;padding:70px 20px">
+    <div style="font-size:44px;margin-bottom:14px">🔒</div>
+    <h2 style="margin-bottom:8px">请先登录</h2>
+    <p style="color:var(--text-2);margin-bottom:22px">管理中心仅管理员可访问。</p>
+    <a class="btn btn-primary btn-lg" href="../登录界面/denlu.html">去登录</a>
+  </div>
+
+  <!-- 非管理员 -->
+  <div class="card" id="adminGuard" style="display:none;text-align:center;padding:70px 20px">
+    <div style="font-size:44px;margin-bottom:14px">⛔</div>
+    <h2 style="margin-bottom:8px">没有权限</h2>
+    <p style="color:var(--text-2);margin-bottom:22px">当前账号不是管理员，无法访问管理中心。</p>
+    <a class="btn btn-ghost btn-lg" href="../首页/shouye.html">返回首页</a>
+  </div>
+
+  <div id="adminMain" style="display:none">
+    <h1 class="admin-title">管理中心</h1>
+
+    <!-- ===== 爬虫控制 ===== -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.2 2.2M16.9 16.9l2.2 2.2M19.1 4.9l-2.2 2.2M7.1 16.9l-2.2 2.2"/></svg>
+        爬虫控制
+        <span class="sub">只采集真实价；错配/偏差超 ±30% 自动丢弃，采不到显示"暂无数据"</span>
+      </div>
+      <div class="crawler-row">
+        <button class="btn btn-primary btn-lg" id="crawlBtn">▶ 启动爬虫</button>
+        <span class="crawler-state" id="crawlerState">状态加载中…</span>
+      </div>
+      <div class="crawler-row" id="crawlerScheduleRow">
+        <button class="btn btn-ghost btn-lg" style="border-color:#0e7490;color:#0e7490" id="crawlerScheduleBtn">🕐 开启定时抓取（每日 08/12/18/22 点）</button>
+        <button class="btn btn-ghost btn-lg" style="border-color:#dc2626;color:#dc2626;display:none" id="crawlerScheduleStopBtn">⏹ 停止定时抓取</button>
+        <span class="crawler-state" id="crawlerScheduleState">--</span>
+      </div>
+      <div id="crawlerScheduleHint">定时抓取适合服务器长期运行：开启后进程常驻，每日 08:00 / 12:00 / 18:00 / 22:00 各抓一轮；重启后端后需重新开启。单轮"启动爬虫"与定时抓取互不影响。</div>
+      <div class="stat-grid" id="crawlerStats">
+        <div class="stat"><div class="stat-num" id="stTime">--</div><div class="stat-label">最近一轮</div></div>
+        <div class="stat"><div class="stat-num" id="stParsed">--</div><div class="stat-label">解析条数</div></div>
+        <div class="stat"><div class="stat-num" id="stWritten">--</div><div class="stat-label">写入价格</div></div>
+        <div class="stat"><div class="stat-num" id="stCarry">--</div><div class="stat-label">沿用上一真实价</div></div>
+        <div class="stat"><div class="stat-num" id="stNoData">--</div><div class="stat-label">暂无数据</div></div>
+      </div>
+    </div>
+
+    <!-- ===== AI API 配置（免费 / 付费两档分开管理） ===== -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.6L20 10l-5.6 2.4L12 18l-2.4-5.6L4 10l5.6-2.4z"/></svg>
+        AI 对话端 API 接入（免费 / 付费分开）
+        <span class="sub">免费账户与付费账户各用一套 API，分别保存、即时生效；某档密钥留空 = 该档回落本地演示模型。无任何默认地址：填写密钥时接口地址与模型名必填。</span>
+      </div>
+      <div class="ai-form">
+        <div class="ai-tier">
+          <h4 class="ai-tier-title">免费账户 API<span class="ai-tier-tag">FREE</span></h4>
+          <div class="field">
+            <label>API 密钥（留空 = 免费账户使用本地演示模型）</label>
+            <input class="input" id="aiFreeKey" type="password" placeholder="sk-..." autocomplete="off">
+            <div class="hint" id="aiFreeHint">当前：未配置（使用本地演示模型）</div>
+          </div>
+          <div class="field">
+            <label>接口地址（填写密钥时必填，无默认地址）</label>
+            <input class="input" id="aiFreeBase" type="text" placeholder="OpenAI 兼容网关地址，如 DeepSeek/通义/Kimi 的 v1 地址" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>模型名（填写密钥时必填，无默认模型）</label>
+            <input class="input" id="aiFreeModel" type="text" placeholder="如 deepseek-chat / qwen-plus / glm-4 ..." autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="aiFreeSaveBtn">保存免费账户 API</button>
+        </div>
+        <div class="ai-tier">
+          <h4 class="ai-tier-title">付费账户 API<span class="ai-tier-tag">PAID</span></h4>
+          <div class="field">
+            <label>API 密钥（留空 = 付费账户使用本地演示模型）</label>
+            <input class="input" id="aiPaidKey" type="password" placeholder="sk-..." autocomplete="off">
+            <div class="hint" id="aiPaidHint">当前：未配置（使用本地演示模型）</div>
+          </div>
+          <div class="field">
+            <label>接口地址（填写密钥时必填，无默认地址）</label>
+            <input class="input" id="aiPaidBase" type="text" placeholder="OpenAI 兼容网关地址，如 DeepSeek/通义/Kimi 的 v1 地址" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>模型名（填写密钥时必填，无默认模型）</label>
+            <input class="input" id="aiPaidModel" type="text" placeholder="如 deepseek-chat / qwen-plus / glm-4 ..." autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="aiPaidSaveBtn">保存付费账户 API</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 后端服务管理（仅根管理员 Controler 可见） ===== -->
+    <div class="card" id="backendCard" style="display:none">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>
+        后端服务（仅根管理员）
+        <span class="sub">启动/重启后端服务；后端未运行时请直接运行项目根目录的 start-backend.bat（Windows）或 ./start-backend.sh（Linux 服务器）</span>
+      </div>
+      <div class="crawler-row">
+        <button class="btn btn-ghost btn-lg" style="border-color:#b45309;color:#b45309" id="backendRestartBtn">↻ 重启后端服务</button>
+        <span class="crawler-state" id="backendState">状态加载中…</span>
+      </div>
+      <div class="stat-grid" id="backendStats">
+        <div class="stat"><div class="stat-num" id="bkPid">--</div><div class="stat-label">进程 PID</div></div>
+        <div class="stat"><div class="stat-num" id="bkStart">--</div><div class="stat-label">启动时间</div></div>
+        <div class="stat"><div class="stat-num" id="bkUp">--</div><div class="stat-label">已运行</div></div>
+        <div class="stat"><div class="stat-num" id="bkJava">--</div><div class="stat-label">Java 版本</div></div>
+        <div class="stat"><div class="stat-num" id="bkOs">--</div><div class="stat-label">操作系统</div></div>
+      </div>
+    </div>
+
+    <!-- ===== 用户管理 ===== -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 15c2 .7 3.3 2.2 3.7 5"/></svg>
+        用户管理
+        <span class="sub">可直接删除 / 修改用户（改角色、重置密码）；根管理员 Controler 受保护</span>
+      </div>
+      <div class="table-wrap" style="margin-top:14px">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>ID</th><th>用户名</th><th>角色</th><th>套餐</th><th>注册时间</th><th style="width:260px">操作</th>
+            </tr>
+          </thead>
+          <tbody id="userBody">
+            <tr><td colspan="6" style="text-align:center;color:var(--text-3)">加载中…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 硬核比价 · 管理中心</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="js/guanli.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 / 注册 · 硬核比价</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-wrap">
+  <!-- 左侧品牌区 -->
+  <aside class="auth-art">
+    <a class="brand" href="../首页/shouye.html">
+      <img src="../assets/img/logo.svg" alt="logo">
+      <span class="brand-name">硬核比价</span><span class="brand-sub">HWPRICE</span>
+    </a>
+    <div class="auth-art-copy">
+      <h1>登录后解锁<br><span>AI 装机顾问</span></h1>
+      <ul>
+        <li>✓ 报预算和需求，自动生成推荐配置</li>
+        <li>✓ 多硬件查询与价格对比</li>
+        <li>✓ 上传配置单 / 图片，帮你把关</li>
+        <li>✓ 按订阅等级享受 AI 问答额度</li>
+      </ul>
+    </div>
+    <div class="auth-art-foot">
+      <span class="tag plain">游客模式：可浏览全部价格走势，无需登录</span>
+    </div>
+  </aside>
+
+  <!-- 右侧表单区 -->
+  <main class="auth-form">
+    <div class="auth-form-inner">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">登录</button>
+        <button class="auth-tab" data-tab="register">注册账户</button>
+      </div>
+
+      <!-- 登录 -->
+      <form id="loginForm" class="auth-pane">
+        <div class="field">
+          <label>用户名</label>
+          <input class="input" id="loginUsername" type="text" placeholder="请输入用户名" autocomplete="username">
+        </div>
+        <div class="field">
+          <label>密码</label>
+          <input class="input" id="loginPassword" type="password" placeholder="请输入密码" autocomplete="current-password">
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%" id="loginBtn" type="submit">登 录</button>
+        <p class="auth-tip">还没有账户？<a href="#" id="goRegister">立即注册</a>，注册即享免费版（3 次/日 AI 问答）</p>
+      </form>
+
+      <!-- 注册 -->
+      <form id="registerForm" class="auth-pane" hidden>
+        <div class="field">
+          <label>用户名</label>
+          <input class="input" id="regUsername" type="text" placeholder="3-20 位，字母 / 数字 / 下划线 / 中文" autocomplete="username">
+          <div class="hint">3-20 位，仅限字母、数字、下划线或中文</div>
+        </div>
+        <div class="field">
+          <label>密码</label>
+          <input class="input" id="regPassword" type="password" placeholder="6-32 位" autocomplete="new-password">
+          <div class="hint">6-32 位</div>
+        </div>
+        <div class="field">
+          <label>确认密码</label>
+          <input class="input" id="regPassword2" type="password" placeholder="再次输入密码" autocomplete="new-password">
+        </div>
+        <button class="btn btn-primary btn-lg" style="width:100%" id="regBtn" type="submit">注册并登录</button>
+        <p class="auth-tip">已有账户？<a href="#" id="goLogin">直接登录</a></p>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>硬核比价 · 硬件价格比价与智能推荐</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="shouye.html">
+      <img src="../assets/img/logo.svg" alt="logo">
+      <span class="brand-name">硬核比价</span><span class="brand-sub">HWPRICE</span>
+    </a>
+    <nav class="nav">
+      <a class="nav-link active" href="shouye.html">首页</a>
+      <a class="nav-link" href="#categories">硬件价格</a>
+      <a class="nav-link" href="#" id="navAi">AI 助手</a>
+      <a class="nav-link" href="../账户/gerenxingxi.html#plans">订阅方案</a>
+    </nav>
+    <div class="header-right" id="headerRight"></div>
+  </div>
+</header>
+
+<main>
+  <!-- ===== Hero + 搜索 ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">中关村在线参考价 · 每日更新 · AI 推荐配置</span>
+        <h1>装机先比价<br><span class="grad">买硬件不踩坑</span></h1>
+        <p class="hero-sub">聚合 <b>中关村在线（ZOL）</b> 参考报价：30 天走势折线图，一眼看清价格高低与入手时机；把预算报给 AI，直接得到一套推荐配置。</p>
+
+        <div class="search-box" id="searchBox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="searchInput" type="text" placeholder="搜索硬件型号，如 RTX 4060、i5-12400F、990 PRO…" autocomplete="off">
+          <button class="btn btn-primary" id="searchBtn">搜索</button>
+        </div>
+        <div class="search-panel" id="searchPanel" hidden></div>
+
+        <div class="hero-stats">
+          <div class="stat"><b id="statTypes">--</b><span>硬件分类</span></div>
+          <div class="stat"><b>58</b><span>收录型号</span></div>
+          <div class="stat"><b>ZOL</b><span>数据来源</span></div>
+          <div class="stat"><b>30</b><span>天价格走势</span></div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="art-card">
+          <div class="art-head">
+            <span>近 30 天价格走势</span>
+            <span class="tag teal">自动抓取</span>
+          </div>
+          <svg viewBox="0 0 340 150" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="ag1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#76b900" stop-opacity=".35"/><stop offset="1" stop-color="#76b900" stop-opacity="0"/></linearGradient>
+            </defs>
+            <path d="M0,120 C30,112 45,96 70,100 C95,104 108,80 135,84 C162,88 175,62 200,66 C225,70 240,46 265,50 C290,54 310,34 340,38 L340,150 L0,150 Z" fill="url(#ag1)"/>
+            <path d="M0,120 C30,112 45,96 70,100 C95,104 108,80 135,84 C162,88 175,62 200,66 C225,70 240,46 265,50 C290,54 310,34 340,38" fill="none" stroke="#76b900" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="340" cy="38" r="4" fill="#76b900"/>
+          </svg>
+          <div class="art-legend">
+            <span><i style="background:#76b900"></i>中关村在线参考价</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 硬件分类 ===== -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">PRICE TREND</span>
+        <h2>硬件价格波动</h2>
+        <p>点击任一硬件，查看 30 天价格走势折线图、高性价比推荐与避坑指南。</p>
+      </div>
+      <div class="cat-grid" id="catGrid">
+        <div class="skeleton" style="height:150px"></div>
+        <div class="skeleton" style="height:150px"></div>
+        <div class="skeleton" style="height:150px"></div>
+        <div class="skeleton" style="height:150px"></div>
+        <div class="skeleton" style="height:150px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI 入口 ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="ai-banner">
+        <div class="ai-banner-copy">
+          <span class="eyebrow">AI ADVISOR</span>
+          <h2>AI 装机顾问，说人话</h2>
+          <p>报预算和用途 → 自动生成推荐配置；报两个型号 → 帮你比价格；上传配置单图片 → 帮你把关。回答全部是简短浓缩的大白话。</p>
+          <ul class="ai-feats">
+            <li>✓ 预算 + 需求 → 推荐配置</li>
+            <li>✓ 多硬件查询与对比</li>
+            <li>✓ 配置单 / 图片识别</li>
+            <li>✓ 结合实时价格数据</li>
+          </ul>
+        </div>
+        <div class="ai-banner-cta">
+          <button class="btn btn-primary btn-lg" id="aiStart">开始咨询</button>
+          <a class="btn btn-ghost btn-lg" href="../账户/gerenxingxi.html#plans">查看订阅方案</a>
+          <p class="ai-note">未登录仅可浏览价格；登录后按订阅等级享受 AI 问答额度。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 数据来源 ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="source-band">
+        <div>
+          <h3>数据从哪来？</h3>
+          <p>爬虫抓取中关村在线（ZOL）参考报价，入库前做三重校验：型号页标题回校验防错配、与基准价偏差超 ±30% 自动丢弃、采不到显示"暂无数据"（绝不编造价格）。折线图与「高性价比推荐」采用同一口径：性能分由 PassMark / 3DMark / 官方规格自动映射 1-100，性价比指数 = 性能分 ÷ ln(参考价) × 100，越大越划算。</p>
+        </div>
+        <div class="source-chips">
+          <span class="chip zol">中关村在线 ZOL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-col" style="max-width:300px">
+        <a class="brand" href="shouye.html"><img src="../assets/img/logo.svg" alt="logo" style="width:28px;height:28px"><span class="brand-name">硬核比价</span></a>
+        <p style="color:var(--text-3);font-size:13px;margin-top:12px">硬件价格比价与智能推荐网站：爬虫采集中关村在线参考价，折线图看走势，AI 帮装机。</p>
+      </div>
+      <div class="footer-col">
+        <h4>硬件价格</h4>
+        <a href="../CPU/cpu.html">CPU（台式机）</a>
+        <a href="../GPU/gpu.html">GPU（台式机）</a>
+        <a href="../固态硬盘/gutai.html">固态硬盘</a>
+        <a href="../显示屏/xianshiping.html">台式机显示屏</a>
+      </div>
+      <div class="footer-col">
+        <h4>外设与存储</h4>
+        <a href="../键盘/jianpan.html">键盘</a>
+        <a href="../鼠标/shubiao.html">鼠标</a>
+        <a href="../移动便携固态硬盘/yidong%20gutaiyingpan.html">移动固态硬盘</a>
+        <a href="../移动便携机械硬盘/yidong%20jixieyingpan.html">移动机械硬盘</a>
+      </div>
+      <div class="footer-col">
+        <h4>账户</h4>
+        <a href="../登录界面/denlu.html">登录 / 注册</a>
+        <a href="../账户/gerenxingxi.html">我的账户与订阅</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 硬核比价 · 硬件价格比价与智能推荐网站</span>
+      <span>前端 HTML/CSS/JS + ECharts ｜ 后端 Java Spring Boot ｜ 采集 Python 爬虫</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/quota.v3.js"></script>
+<script src="../assets/js/ai.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的账户与订阅 · 硬核比价</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../首页/shouye.html">
+      <img src="../assets/img/logo.svg" alt="logo">
+      <span class="brand-name">硬核比价</span><span class="brand-sub">HWPRICE</span>
+    </a>
+    <nav class="nav">
+      <a class="nav-link" href="../首页/shouye.html">首页</a>
+      <a class="nav-link" href="../首页/shouye.html#categories">硬件价格</a>
+      <a class="nav-link" href="#" id="navAi">AI 助手</a>
+      <a class="nav-link active" href="gerenxingxi.html#plans">订阅方案</a>
+    </nav>
+    <div class="header-right" id="headerRight"></div>
+  </div>
+</header>
+
+<main class="container" style="padding-top:34px">
+  <!-- 未登录提示 -->
+  <div class="card" id="loginGuard" style="display:none;text-align:center;padding:70px 20px">
+    <div style="font-size:44px;margin-bottom:14px">🔒</div>
+    <h2 style="margin-bottom:8px">请先登录</h2>
+    <p style="color:var(--text-2);margin-bottom:22px">登录后才能查看账户信息、订阅套餐与 AI 额度明细。</p>
+    <a class="btn btn-primary btn-lg" href="../登录界面/denlu.html">去登录 / 注册</a>
+  </div>
+
+  <div id="accountMain">
+    <!-- 用户信息 -->
+    <div class="acct-hero">
+      <div class="avatar" id="avatarBox">U</div>
+      <div class="acct-hero-info">
+        <h1 id="acctName">--</h1>
+        <div class="acct-meta">
+          <span class="tag" id="acctPlanTag">--</span>
+          <span class="tag plain">注册用户</span>
+          <span class="tag blue" id="acctExpire">--</span>
+        </div>
+      </div>
+      <div class="acct-hero-side">
+        <a class="btn btn-ghost btn-sm" href="#plans">查看订阅方案 ↓</a>
+      </div>
+    </div>
+
+    <!-- 当前订阅 + 额度进度 -->
+    <div class="acct-grid">
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.6L20 10l-5.6 2.4L12 18l-2.4-5.6L4 10l5.6-2.4z"/></svg>
+          当前订阅
+        </div>
+        <div class="sub-card" id="subCard">加载中…</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          AI 使用额度
+        </div>
+        <div class="quota-blocks" id="quotaBlocks">加载中…</div>
+      </div>
+    </div>
+
+    <!-- 订阅方案 -->
+    <div class="card" id="plans" style="margin-top:24px">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 6H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H6"/></svg>
+        订阅方案
+        <span class="sub" id="planDemoSub" style="display:none">比赛演示模式：订阅即激活，跳过支付环节</span>
+      </div>
+      <div class="plan-grid" id="planGrid" style="margin-top:18px"></div>
+    </div>
+
+    <!-- 额度消耗明细 -->
+    <div class="card" style="margin-top:24px">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 13l3-3 3 3 5-6"/></svg>
+        额度消耗明细
+        <span class="sub">每次 AI 问答扣减记录（文本 1 次 / 含图 2 次）</span>
+      </div>
+      <div class="table-wrap" style="margin-top:14px">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>类型</th>
+              <th>消耗额度</th>
+              <th>提问内容</th>
+            </tr>
+          </thead>
+          <tbody id="logBody">
+            <tr><td colspan="4" style="text-align:center;color:var(--text-3)">加载中…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pager" id="logPager" style="display:none">
+        <button class="btn btn-ghost btn-sm" id="logPrev">‹ 上一页</button>
+        <span id="logPageInfo">1 / 1</span>
+        <button class="btn btn-ghost btn-sm" id="logNext">下一页 ›</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-col" style="max-width:300px">
+        <a class="brand" href="../首页/shouye.html"><img src="../assets/img/logo.svg" alt="logo" style="width:28px;height:28px"><span class="brand-name">硬核比价</span></a>
+        <p style="color:var(--text-3);font-size:13px;margin-top:12px">硬件价格比价与智能推荐网站：爬虫采集中关村在线参考价，折线图看走势，AI 帮装机。</p>
+      </div>
+      <div class="footer-col">
+        <h4>硬件价格</h4>
+        <a href="../CPU/cpu.html">CPU（台式机）</a>
+        <a href="../GPU/gpu.html">GPU（台式机）</a>
+        <a href="../固态硬盘/gutai.html">固态硬盘</a>
+        <a href="../显示屏/xianshiping.html">台式机显示屏</a>
+      </div>
+      <div class="footer-col">
+        <h4>外设与存储</h4>
+        <a href="../键盘/jianpan.html">键盘</a>
+        <a href="../鼠标/shubiao.html">鼠标</a>
+        <a href="../移动便携固态硬盘/yidong%20gutaiyingpan.html">移动固态硬盘</a>
+        <a href="../移动便携机械硬盘/yidong%20jixieyingpan.html">移动机械硬盘</a>
+      </div>
+      <div class="footer-col">
+        <h4>账户</h4>
+        <a href="../登录界面/denlu.html">登录 / 注册</a>
+        <a href="gerenxingxi.html">我的账户与订阅</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 硬核比价 · 硬件价格比价与智能推荐网站</span>
+      <span>前端 HTML/CSS/JS + ECharts ｜ 后端 Java Spring Boot ｜ 采集 Python 爬虫</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/quota.v3.js"></script>
+<script src="../assets/js/ai.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>
